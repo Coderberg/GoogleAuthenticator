@@ -35,14 +35,20 @@ class GoogleAuthenticatorTest extends TestCase
         $this->assertInstanceOf(GoogleAuthenticator::class, $ga);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testCreateSecretDefaultsToSixteenCharacters()
     {
         $ga = $this->googleAuthenticator;
         $secret = $ga->createSecret();
 
-        $this->assertSame(strlen($secret), 16);
+        $this->assertSame(16, strlen($secret));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testCreateSecretLengthCanBeSpecified()
     {
         $ga = $this->googleAuthenticator;
@@ -73,9 +79,9 @@ class GoogleAuthenticatorTest extends TestCase
 
         parse_str($urlParts['query'], $queryStringArray);
 
-        $this->assertSame($urlParts['scheme'], 'https');
-        $this->assertSame($urlParts['host'], 'api.qrserver.com');
-        $this->assertSame($urlParts['path'], '/v1/create-qr-code/');
+        $this->assertSame('https', $urlParts['scheme']);
+        $this->assertSame('api.qrserver.com', $urlParts['host']);
+        $this->assertSame('/v1/create-qr-code/', $urlParts['path']);
 
         $expectedChl = 'otpauth://totp/'.$name.'?secret='.$secret;
 
