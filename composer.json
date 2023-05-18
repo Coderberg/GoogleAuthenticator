@@ -20,7 +20,8 @@
         "php": ">=7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "friendsofphp/php-cs-fixer": "^2.19"
     },
     "autoload": {
         "classmap": ["PHPGangsta/GoogleAuthenticator.php"]

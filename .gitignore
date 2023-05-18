@@ -3,3 +3,6 @@
 
 # Composer
 vendor
+
+# Exclude auto generated code
+.php-cs-fixer.dist.php
