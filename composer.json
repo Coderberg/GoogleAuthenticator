@@ -1,5 +1,5 @@
 {
-    "name": "phpgangsta/googleauthenticator",
+    "name": "coderberg/google-authenticator",
     "description": "Google Authenticator 2-factor authentication",
     "version": "1.0.0",
     "type": "library",
@@ -18,13 +18,12 @@
         "issues": "https://github.com/PHPGangsta/GoogleAuthenticator/issues"
     },
     "require": {
-        "php": ">=5.3"
+        "php": ">=7.0"
     },
-	"autoload": {
-		"classmap": ["PHPGangsta/GoogleAuthenticator.php"]
-	}
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "classmap": ["PHPGangsta/GoogleAuthenticator.php"]
+    }
 }
-
-
-
-

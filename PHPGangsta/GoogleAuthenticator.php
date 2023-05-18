@@ -1,5 +1,9 @@
 <?php
 
+namespace PHPGangsta;
+
+use Exception;
+
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.
  *
@@ -9,7 +13,7 @@
  *
  * @link http://www.phpgangsta.de/
  */
-class PHPGangsta_GoogleAuthenticator
+class GoogleAuthenticator
 {
     protected $_codeLength = 6;
 
@@ -147,7 +151,7 @@ class PHPGangsta_GoogleAuthenticator
      *
      * @param int $length
      *
-     * @return PHPGangsta_GoogleAuthenticator
+     * @return GoogleAuthenticator
      */
     public function setCodeLength($length)
     {

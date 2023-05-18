@@ -1,15 +1,18 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+use PHPGangsta\GoogleAuthenticator;
+use PHPUnit\Framework\TestCase;
 
-class GoogleAuthenticatorTest extends PHPUnit_Framework_TestCase
+class GoogleAuthenticatorTest extends TestCase
 {
-    /* @var $googleAuthenticator PHPGangsta_GoogleAuthenticator */
     protected $googleAuthenticator;
 
+    /**
+     * @return void
+     */
     protected function setUp()
     {
-        $this->googleAuthenticator = new PHPGangsta_GoogleAuthenticator();
+        $this->googleAuthenticator = new GoogleAuthenticator();
     }
 
     public function codeProvider()
@@ -24,9 +27,9 @@ class GoogleAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeInstantiated()
     {
-        $ga = new PHPGangsta_GoogleAuthenticator();
+        $ga = new GoogleAuthenticator();
 
-        $this->assertInstanceOf('PHPGangsta_GoogleAuthenticator', $ga);
+        $this->assertInstanceOf(GoogleAuthenticator::class, $ga);
     }
 
     public function testCreateSecretDefaultsToSixteenCharacters()
@@ -106,6 +109,6 @@ class GoogleAuthenticatorTest extends PHPUnit_Framework_TestCase
     {
         $result = $this->googleAuthenticator->setCodeLength(6);
 
-        $this->assertInstanceOf('PHPGangsta_GoogleAuthenticator', $result);
+        $this->assertInstanceOf(GoogleAuthenticator::class, $result);
     }
 }
