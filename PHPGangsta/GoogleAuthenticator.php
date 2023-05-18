@@ -11,7 +11,7 @@ use Exception;
  * @copyright 2012 Michael Kliewe
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  *
- * @link http://www.phpgangsta.de/
+ * @see http://www.phpgangsta.de/
  */
 class GoogleAuthenticator
 {
@@ -43,7 +43,7 @@ class GoogleAuthenticator
                 $rnd = false;
             }
         }
-        if ($rnd !== false) {
+        if (false !== $rnd) {
             for ($i = 0; $i < $secretLength; ++$i) {
                 $secret .= $validChars[ord($rnd[$i]) & 31];
             }
@@ -59,7 +59,7 @@ class GoogleAuthenticator
      */
     public function getCode(string $secret, int $timeSlice = null): string
     {
-        if ($timeSlice === null) {
+        if (null === $timeSlice) {
             $timeSlice = floor(time() / 30);
         }
 
@@ -88,11 +88,11 @@ class GoogleAuthenticator
     /**
      * Get QR-Code URL for image, from google charts.
      */
-    public function getQRCodeGoogleUrl(string $name, string $secret, string $title = null, array $params = array())
+    public function getQRCodeGoogleUrl(string $name, string $secret, string $title = null, array $params = [])
     {
         $width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
         $height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
-        $level = !empty($params['level']) && array_search($params['level'], array('L', 'M', 'Q', 'H')) !== false ? $params['level'] : 'M';
+        $level = !empty($params['level']) && false !== array_search($params['level'], ['L', 'M', 'Q', 'H']) ? $params['level'] : 'M';
 
         $urlencoded = urlencode('otpauth://totp/'.$name.'?secret='.$secret.'');
         if (isset($title)) {
@@ -107,11 +107,11 @@ class GoogleAuthenticator
      */
     public function verifyCode(string $secret, string $code, int $discrepancy = 1, int $currentTimeSlice = null): bool
     {
-        if ($currentTimeSlice === null) {
+        if (null === $currentTimeSlice) {
             $currentTimeSlice = floor(time() / 30);
         }
 
-        if (strlen($code) != 6) {
+        if (6 != strlen($code)) {
             return false;
         }
 
@@ -152,7 +152,7 @@ class GoogleAuthenticator
         $base32charsFlipped = array_flip($base32chars);
 
         $paddingCharCount = substr_count($secret, $base32chars[32]);
-        $allowedValues = array(6, 4, 3, 1, 0);
+        $allowedValues = [6, 4, 3, 1, 0];
         if (!in_array($paddingCharCount, $allowedValues)) {
             return false;
         }
@@ -175,7 +175,7 @@ class GoogleAuthenticator
             }
             $eightBits = str_split($x, 8);
             for ($z = 0; $z < count($eightBits); ++$z) {
-                $binaryString .= (($y = chr(base_convert($eightBits[$z], 2, 10))) || ord($y) == 48) ? $y : '';
+                $binaryString .= (($y = chr(base_convert($eightBits[$z], 2, 10))) || 48 == ord($y)) ? $y : '';
             }
         }
 
@@ -187,13 +187,13 @@ class GoogleAuthenticator
      */
     protected function _getBase32LookupTable(): array
     {
-        return array(
+        return [
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  7
             'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', // 15
             'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', // 23
             'Y', 'Z', '2', '3', '4', '5', '6', '7', // 31
             '=',  // padding char
-        );
+        ];
     }
 
     /**
@@ -219,6 +219,6 @@ class GoogleAuthenticator
         }
 
         // They are only identical strings if $result is exactly 0...
-        return $result === 0;
+        return 0 === $result;
     }
 }

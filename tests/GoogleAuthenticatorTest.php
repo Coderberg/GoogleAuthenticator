@@ -21,11 +21,11 @@ class GoogleAuthenticatorTest extends TestCase
     public function codeProvider(): array
     {
         // Secret, time, code
-        return array(
-            array('SECRET', '0', '200470'),
-            array('SECRET', '1385909245', '780018'),
-            array('SECRET', '1378934578', '705013'),
-        );
+        return [
+            ['SECRET', '0', '200470'],
+            ['SECRET', '1385909245', '780018'],
+            ['SECRET', '1378934578', '705013'],
+        ];
     }
 
     public function testItCanBeInstantiated()
@@ -40,7 +40,7 @@ class GoogleAuthenticatorTest extends TestCase
         $ga = $this->googleAuthenticator;
         $secret = $ga->createSecret();
 
-        $this->assertEquals(strlen($secret), 16);
+        $this->assertSame(strlen($secret), 16);
     }
 
     public function testCreateSecretLengthCanBeSpecified()
@@ -50,7 +50,7 @@ class GoogleAuthenticatorTest extends TestCase
         for ($secretLength = 16; $secretLength < 100; ++$secretLength) {
             $secret = $ga->createSecret($secretLength);
 
-            $this->assertEquals(strlen($secret), $secretLength);
+            $this->assertSame(strlen($secret), $secretLength);
         }
     }
 
@@ -61,7 +61,7 @@ class GoogleAuthenticatorTest extends TestCase
     {
         $generatedCode = $this->googleAuthenticator->getCode($secret, $timeSlice);
 
-        $this->assertEquals($code, $generatedCode);
+        $this->assertSame($code, $generatedCode);
     }
 
     public function testGetQRCodeGoogleUrlReturnsCorrectUrl()
@@ -73,13 +73,13 @@ class GoogleAuthenticatorTest extends TestCase
 
         parse_str($urlParts['query'], $queryStringArray);
 
-        $this->assertEquals($urlParts['scheme'], 'https');
-        $this->assertEquals($urlParts['host'], 'api.qrserver.com');
-        $this->assertEquals($urlParts['path'], '/v1/create-qr-code/');
+        $this->assertSame($urlParts['scheme'], 'https');
+        $this->assertSame($urlParts['host'], 'api.qrserver.com');
+        $this->assertSame($urlParts['path'], '/v1/create-qr-code/');
 
         $expectedChl = 'otpauth://totp/'.$name.'?secret='.$secret;
 
-        $this->assertEquals($queryStringArray['data'], $expectedChl);
+        $this->assertSame($queryStringArray['data'], $expectedChl);
     }
 
     public function testVerifyCode()
@@ -88,12 +88,12 @@ class GoogleAuthenticatorTest extends TestCase
         $code = $this->googleAuthenticator->getCode($secret);
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
 
-        $this->assertEquals(true, $result);
+        $this->assertSame(true, $result);
 
         $code = 'INVALIDCODE';
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
 
-        $this->assertEquals(false, $result);
+        $this->assertSame(false, $result);
     }
 
     public function testVerifyCodeWithLeadingZero()
@@ -101,11 +101,11 @@ class GoogleAuthenticatorTest extends TestCase
         $secret = 'SECRET';
         $code = $this->googleAuthenticator->getCode($secret);
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
-        $this->assertEquals(true, $result);
+        $this->assertSame(true, $result);
 
         $code = '0'.$code;
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
-        $this->assertEquals(false, $result);
+        $this->assertSame(false, $result);
     }
 
     public function testSetCodeLength()
