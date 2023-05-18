@@ -5,6 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 class GoogleAuthenticatorTest extends TestCase
 {
+    /**
+     * @var GoogleAuthenticator
+     */
     protected $googleAuthenticator;
 
     /**
@@ -15,7 +18,7 @@ class GoogleAuthenticatorTest extends TestCase
         $this->googleAuthenticator = new GoogleAuthenticator();
     }
 
-    public function codeProvider()
+    public function codeProvider(): array
     {
         // Secret, time, code
         return array(

@@ -21,11 +21,9 @@ class GoogleAuthenticator
      * Create new secret.
      * 16 characters, randomly chosen from the allowed base32 characters.
      *
-     * @param int $secretLength
-     *
-     * @return string
+     * @throws Exception
      */
-    public function createSecret($secretLength = 16)
+    public function createSecret(int $secretLength = 16): string
     {
         $validChars = $this->_getBase32LookupTable();
 
@@ -58,13 +56,8 @@ class GoogleAuthenticator
 
     /**
      * Calculate the code, with given secret and point in time.
-     *
-     * @param string   $secret
-     * @param int|null $timeSlice
-     *
-     * @return string
      */
-    public function getCode($secret, $timeSlice = null)
+    public function getCode(string $secret, int $timeSlice = null): string
     {
         if ($timeSlice === null) {
             $timeSlice = floor(time() / 30);
@@ -94,15 +87,8 @@ class GoogleAuthenticator
 
     /**
      * Get QR-Code URL for image, from google charts.
-     *
-     * @param string $name
-     * @param string $secret
-     * @param string $title
-     * @param array  $params
-     *
-     * @return string
      */
-    public function getQRCodeGoogleUrl($name, $secret, $title = null, $params = array())
+    public function getQRCodeGoogleUrl(string $name, string $secret, string $title = null, array $params = array())
     {
         $width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
         $height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
@@ -118,15 +104,8 @@ class GoogleAuthenticator
 
     /**
      * Check if the code is correct. This will accept codes starting from $discrepancy*30sec ago to $discrepancy*30sec from now.
-     *
-     * @param string   $secret
-     * @param string   $code
-     * @param int      $discrepancy      This is the allowed time drift in 30 second units (8 means 4 minutes before or after)
-     * @param int|null $currentTimeSlice time slice if we want use other that time()
-     *
-     * @return bool
      */
-    public function verifyCode($secret, $code, $discrepancy = 1, $currentTimeSlice = null)
+    public function verifyCode(string $secret, string $code, int $discrepancy = 1, int $currentTimeSlice = null): bool
     {
         if ($currentTimeSlice === null) {
             $currentTimeSlice = floor(time() / 30);
@@ -148,12 +127,8 @@ class GoogleAuthenticator
 
     /**
      * Set the code length, should be >=6.
-     *
-     * @param int $length
-     *
-     * @return GoogleAuthenticator
      */
-    public function setCodeLength($length)
+    public function setCodeLength(int $length): GoogleAuthenticator
     {
         $this->_codeLength = $length;
 
@@ -209,10 +184,8 @@ class GoogleAuthenticator
 
     /**
      * Get array with all 32 characters for decoding from/encoding to base32.
-     *
-     * @return array
      */
-    protected function _getBase32LookupTable()
+    protected function _getBase32LookupTable(): array
     {
         return array(
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  7
@@ -226,13 +199,8 @@ class GoogleAuthenticator
     /**
      * A timing safe equals comparison
      * more info here: http://blog.ircmaxell.com/2014/11/its-all-about-time.html.
-     *
-     * @param string $safeString The internal (safe) value to be checked
-     * @param string $userString The user submitted (unsafe) value
-     *
-     * @return bool True if the two strings are identical
      */
-    private function timingSafeEquals($safeString, $userString)
+    private function timingSafeEquals(string $safeString, string $userString): bool
     {
         if (function_exists('hash_equals')) {
             return hash_equals($safeString, $userString);
