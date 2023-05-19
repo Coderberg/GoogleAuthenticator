@@ -12,8 +12,13 @@ can generate secrets, generate codes, validate codes and present a QR-Code for s
 according to [RFC6238](https://tools.ietf.org/html/rfc6238)
 
 For a secure installation you have to make sure that used codes cannot be reused (replay-attack). You also need to
-limit the number of verifications, to fight against brute-force attacks. For example you could limit the amount of
+limit the number of verifications, to fight against brute-force attacks. For example, you could limit the amount of
 verifications to 10 tries within 10 minutes for one IP address (or IPv6 block). It depends on your environment.
+
+### Supported PHP Versions
+- PHP 8.0
+- PHP 8.1
+- PHP 8.2
 
 ### Installation
 ```shell

@@ -2,8 +2,6 @@
 
 namespace PHPGangsta;
 
-use Exception;
-
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.
  *
@@ -15,13 +13,13 @@ use Exception;
  */
 final class GoogleAuthenticator
 {
-    private $_codeLength = 6;
+    private int $_codeLength = 6;
 
     /**
      * Create new secret.
      * 16 characters, randomly chosen from the allowed base32 characters.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function createSecret(int $secretLength = 16): string
     {
@@ -29,14 +27,12 @@ final class GoogleAuthenticator
 
         // Valid secret lengths are 80 to 640 bits
         if ($secretLength < 16 || $secretLength > 128) {
-            throw new Exception('Bad secret length');
+            throw new \Exception('Bad secret length');
         }
         $secret = '';
         $rnd = false;
         if (function_exists('random_bytes')) {
             $rnd = random_bytes($secretLength);
-        } elseif (function_exists('mcrypt_create_iv')) {
-            $rnd = mcrypt_create_iv($secretLength, MCRYPT_DEV_URANDOM);
         } elseif (function_exists('openssl_random_pseudo_bytes')) {
             $rnd = openssl_random_pseudo_bytes($secretLength, $cryptoStrong);
             if (!$cryptoStrong) {
@@ -48,7 +44,7 @@ final class GoogleAuthenticator
                 $secret .= $validChars[ord($rnd[$i]) & 31];
             }
         } else {
-            throw new Exception('No source of secure random');
+            throw new \Exception('No source of secure random');
         }
 
         return $secret;
@@ -92,14 +88,14 @@ final class GoogleAuthenticator
     {
         $width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
         $height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
-        $level = !empty($params['level']) && false !== array_search($params['level'], ['L', 'M', 'Q', 'H']) ? $params['level'] : 'M';
+        $level = !empty($params['level']) && in_array($params['level'], ['L', 'M', 'Q', 'H']) ? $params['level'] : 'M';
 
-        $urlencoded = urlencode('otpauth://totp/'.$name.'?secret='.$secret.'');
+        $urlencoded = urlencode('otpauth://totp/'.$name.'?secret='.$secret);
         if (isset($title)) {
             $urlencoded .= urlencode('&issuer='.urlencode($title));
         }
 
-        return "https://api.qrserver.com/v1/create-qr-code/?data=$urlencoded&size=${width}x${height}&ecc=$level";
+        return "https://api.qrserver.com/v1/create-qr-code/?data=$urlencoded&size={$width}x{$height}&ecc=$level";
     }
 
     /**
@@ -138,12 +134,8 @@ final class GoogleAuthenticator
 
     /**
      * Helper class to decode base32.
-     *
-     * @param $secret
-     *
-     * @return bool|string
      */
-    private function _base32Decode($secret)
+    private function _base32Decode($secret): bool|string
     {
         if (empty($secret)) {
             return '';
@@ -159,7 +151,7 @@ final class GoogleAuthenticator
         }
         for ($i = 0; $i < 4; ++$i) {
             if ($paddingCharCount == $allowedValues[$i] &&
-                substr($secret, -($allowedValues[$i])) != str_repeat($base32chars[32], $allowedValues[$i])) {
+                substr($secret, -$allowedValues[$i]) != str_repeat($base32chars[32], $allowedValues[$i])) {
                 return false;
             }
         }
