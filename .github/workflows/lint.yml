@@ -45,3 +45,6 @@ jobs:
 
       - name: Check coding standards
         run: vendor/bin/php-cs-fixer fix
+
+      - name: Rector
+        run: vendor/bin/rector process --clear-cache --dry-run

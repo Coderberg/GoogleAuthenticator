@@ -76,7 +76,7 @@ final class GoogleAuthenticator
         // Only 32 bits
         $value = $value & 0x7FFFFFFF;
 
-        $modulo = pow(10, $this->_codeLength);
+        $modulo = 10 ** $this->_codeLength;
 
         return str_pad($value % $modulo, $this->_codeLength, '0', STR_PAD_LEFT);
     }
