@@ -5,7 +5,7 @@ namespace PHPGangsta\Tests;
 use PHPGangsta\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
 
-class GoogleAuthenticatorTest extends TestCase
+final class GoogleAuthenticatorTest extends TestCase
 {
     /**
      * @var GoogleAuthenticator

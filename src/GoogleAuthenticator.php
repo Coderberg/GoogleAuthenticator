@@ -13,9 +13,9 @@ use Exception;
  *
  * @see http://www.phpgangsta.de/
  */
-class GoogleAuthenticator
+final class GoogleAuthenticator
 {
-    protected $_codeLength = 6;
+    private $_codeLength = 6;
 
     /**
      * Create new secret.
@@ -103,7 +103,8 @@ class GoogleAuthenticator
     }
 
     /**
-     * Check if the code is correct. This will accept codes starting from $discrepancy*30sec ago to $discrepancy*30sec from now.
+     * Check if the code is correct.
+     * This will accept codes starting from $discrepancy*30sec ago to $discrepancy*30sec from now.
      */
     public function verifyCode(string $secret, string $code, int $discrepancy = 1, int $currentTimeSlice = null): bool
     {
@@ -111,7 +112,7 @@ class GoogleAuthenticator
             $currentTimeSlice = floor(time() / 30);
         }
 
-        if (6 != strlen($code)) {
+        if ($this->_codeLength !== strlen($code)) {
             return false;
         }
 
@@ -142,7 +143,7 @@ class GoogleAuthenticator
      *
      * @return bool|string
      */
-    protected function _base32Decode($secret)
+    private function _base32Decode($secret)
     {
         if (empty($secret)) {
             return '';
@@ -185,7 +186,7 @@ class GoogleAuthenticator
     /**
      * Get array with all 32 characters for decoding from/encoding to base32.
      */
-    protected function _getBase32LookupTable(): array
+    private function _getBase32LookupTable(): array
     {
         return [
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  7
