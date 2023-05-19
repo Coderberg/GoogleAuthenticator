@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PHPGangsta;
+namespace Coderberg;
 
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.

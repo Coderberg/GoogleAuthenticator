@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PHPGangsta\Tests;
+namespace Coderberg\Tests;
 
-use PHPGangsta\GoogleAuthenticator;
+use Coderberg\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
 
 final class GoogleAuthenticatorTest extends TestCase

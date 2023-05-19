@@ -30,7 +30,7 @@ composer req coderberg/google-authenticator
 ```php
 <?php
 
-use PHPGangsta\GoogleAuthenticator;
+use Coderberg\GoogleAuthenticator;
 
 $ga = new GoogleAuthenticator();
 $secret = $ga->createSecret();

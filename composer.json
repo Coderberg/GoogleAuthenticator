@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPGangsta\\": "src/"
+            "Coderberg\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHPGangsta\\Tests\\": "tests/"
+            "Coderberg\\Tests\\": "tests/"
         }
     }
 }
