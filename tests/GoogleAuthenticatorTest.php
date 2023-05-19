@@ -26,7 +26,7 @@ final class GoogleAuthenticatorTest extends TestCase
         ];
     }
 
-    public function testItCanBeInstantiated()
+    public function testItCanBeInstantiated(): void
     {
         $ga = new GoogleAuthenticator();
 
@@ -36,39 +36,39 @@ final class GoogleAuthenticatorTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testCreateSecretDefaultsToSixteenCharacters()
+    public function testCreateSecretDefaultsToSixteenCharacters(): void
     {
         $ga = $this->googleAuthenticator;
         $secret = $ga->createSecret();
 
-        $this->assertSame(16, strlen($secret));
+        $this->assertSame(16, \strlen($secret));
     }
 
     /**
      * @throws \Exception
      */
-    public function testCreateSecretLengthCanBeSpecified()
+    public function testCreateSecretLengthCanBeSpecified(): void
     {
         $ga = $this->googleAuthenticator;
 
         for ($secretLength = 16; $secretLength < 100; ++$secretLength) {
             $secret = $ga->createSecret($secretLength);
 
-            $this->assertSame(strlen($secret), $secretLength);
+            $this->assertSame(\strlen($secret), $secretLength);
         }
     }
 
     /**
      * @dataProvider codeProvider
      */
-    public function testGetCodeReturnsCorrectValues($secret, $timeSlice, $code)
+    public function testGetCodeReturnsCorrectValues($secret, $timeSlice, $code): void
     {
         $generatedCode = $this->googleAuthenticator->getCode($secret, (int) $timeSlice);
 
         $this->assertSame($code, $generatedCode);
     }
 
-    public function testGetQRCodeGoogleUrlReturnsCorrectUrl()
+    public function testGetQRCodeGoogleUrlReturnsCorrectUrl(): void
     {
         $secret = 'SECRET';
         $name = 'Test';
@@ -86,33 +86,33 @@ final class GoogleAuthenticatorTest extends TestCase
         $this->assertSame($queryStringArray['data'], $expectedChl);
     }
 
-    public function testVerifyCode()
+    public function testVerifyCode(): void
     {
         $secret = 'SECRET';
         $code = $this->googleAuthenticator->getCode($secret);
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
 
-        $this->assertSame(true, $result);
+        $this->assertTrue($result);
 
         $code = 'INVALIDCODE';
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
 
-        $this->assertSame(false, $result);
+        $this->assertFalse($result);
     }
 
-    public function testVerifyCodeWithLeadingZero()
+    public function testVerifyCodeWithLeadingZero(): void
     {
         $secret = 'SECRET';
         $code = $this->googleAuthenticator->getCode($secret);
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
-        $this->assertSame(true, $result);
+        $this->assertTrue($result);
 
         $code = '0'.$code;
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
-        $this->assertSame(false, $result);
+        $this->assertFalse($result);
     }
 
-    public function testSetCodeLength()
+    public function testSetCodeLength(): void
     {
         $result = $this->googleAuthenticator->setCodeLength(6);
 

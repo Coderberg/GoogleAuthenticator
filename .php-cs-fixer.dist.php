@@ -6,8 +6,10 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP70Migration' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
         '@Symfony' => true,
+        '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
         'linebreak_after_opening_tag' => true,
         'no_php4_constructor' => true,
