@@ -74,7 +74,7 @@ final class GoogleAuthenticator
         $value = unpack('N', $hashpart);
         $value = $value[1];
         // Only 32 bits
-        $value = $value & 0x7FFFFFFF;
+        $value &= 0x7FFFFFFF;
 
         $modulo = 10 ** $this->_codeLength;
 
@@ -151,14 +151,15 @@ final class GoogleAuthenticator
         }
         for ($i = 0; $i < 4; ++$i) {
             if ($paddingCharCount == $allowedValues[$i] &&
-                substr($secret, -$allowedValues[$i]) != str_repeat($base32chars[32], $allowedValues[$i])) {
+                substr($secret, -$allowedValues[$i]) !== str_repeat($base32chars[32], $allowedValues[$i])) {
                 return false;
             }
         }
         $secret = str_replace('=', '', $secret);
         $secret = str_split($secret);
         $binaryString = '';
-        for ($i = 0; $i < count($secret); $i = $i + 8) {
+        $secretCount = count($secret);
+        for ($i = 0; $i < $secretCount; $i += 8) {
             $x = '';
             if (!in_array($secret[$i], $base32chars)) {
                 return false;
@@ -167,8 +168,8 @@ final class GoogleAuthenticator
                 $x .= str_pad(base_convert(@$base32charsFlipped[@$secret[$i + $j]], 10, 2), 5, '0', STR_PAD_LEFT);
             }
             $eightBits = str_split($x, 8);
-            for ($z = 0; $z < count($eightBits); ++$z) {
-                $binaryString .= (($y = chr(base_convert($eightBits[$z], 2, 10))) || 48 == ord($y)) ? $y : '';
+            foreach ($eightBits as $z => $eightBit) {
+                $binaryString .= (($y = chr(base_convert($eightBit, 2, 10))) || 48 == ord($y)) ? $y : '';
             }
         }
 
@@ -201,7 +202,7 @@ final class GoogleAuthenticator
         $safeLen = strlen($safeString);
         $userLen = strlen($userString);
 
-        if ($userLen != $safeLen) {
+        if ($userLen !== $safeLen) {
             return false;
         }
 

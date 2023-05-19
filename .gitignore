@@ -6,3 +6,4 @@ vendor
 
 # Exclude auto generated code
 .php-cs-fixer.cache
+.phpunit.result.cache
