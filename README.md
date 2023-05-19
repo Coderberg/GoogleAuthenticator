@@ -1,8 +1,8 @@
 Google Authenticator PHP class
 ==============================
 
-* Copyright (c) 2012-2016, [http://www.phpgangsta.de](http://www.phpgangsta.de)
-* Author: Michael Kliewe, [@PHPGangsta](http://twitter.com/PHPGangsta) and [contributors](https://github.com/PHPGangsta/GoogleAuthenticator/graphs/contributors)
+* Copyright (c) 2012-2016, [https://www.phpgangsta.de](https://www.phpgangsta.de)
+* Author: Michael Kliewe, [@PHPGangsta](https://twitter.com/PHPGangsta) and [contributors](https://github.com/PHPGangsta/GoogleAuthenticator/graphs/contributors)
 * Licensed under the BSD License.
 
 [![PHPUnit](https://github.com/Coderberg/GoogleAuthenticator/actions/workflows/tests.yml/badge.svg)](https://github.com/Coderberg/GoogleAuthenticator/actions/workflows/tests.yml) [![Code Quality](https://github.com/Coderberg/GoogleAuthenticator/actions/workflows/lint.yml/badge.svg)](https://github.com/Coderberg/GoogleAuthenticator/actions/workflows/lint.yml) 

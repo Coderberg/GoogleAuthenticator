@@ -9,9 +9,9 @@ namespace Coderberg;
  *
  * @author Michael Kliewe
  * @copyright 2012 Michael Kliewe
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @license https://opensource.org/license/bsd-2-clause/ BSD License
  *
- * @see http://www.phpgangsta.de/
+ * @see https://www.phpgangsta.de/
  */
 final class GoogleAuthenticator
 {
