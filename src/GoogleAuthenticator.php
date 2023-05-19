@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PHPGangsta;
 
 /**
@@ -78,7 +80,7 @@ final class GoogleAuthenticator
 
         $modulo = 10 ** $this->_codeLength;
 
-        return str_pad($value % $modulo, $this->_codeLength, '0', STR_PAD_LEFT);
+        return str_pad((string) ($value % $modulo), $this->_codeLength, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -113,7 +115,7 @@ final class GoogleAuthenticator
         }
 
         for ($i = -$discrepancy; $i <= $discrepancy; ++$i) {
-            $calculatedCode = $this->getCode($secret, $currentTimeSlice + $i);
+            $calculatedCode = $this->getCode($secret, (int) $currentTimeSlice + $i);
             if ($this->timingSafeEquals($calculatedCode, $code)) {
                 return true;
             }
@@ -165,11 +167,11 @@ final class GoogleAuthenticator
                 return false;
             }
             for ($j = 0; $j < 8; ++$j) {
-                $x .= str_pad(base_convert(@$base32charsFlipped[@$secret[$i + $j]], 10, 2), 5, '0', STR_PAD_LEFT);
+                $x .= str_pad(base_convert((string) @$base32charsFlipped[@$secret[$i + $j]], 10, 2), 5, '0', STR_PAD_LEFT);
             }
             $eightBits = str_split($x, 8);
             foreach ($eightBits as $z => $eightBit) {
-                $binaryString .= (($y = chr(base_convert($eightBit, 2, 10))) || 48 == ord($y)) ? $y : '';
+                $binaryString .= (($y = chr((int) base_convert($eightBit, 2, 10))) || 48 == ord($y)) ? $y : '';
             }
         }
 

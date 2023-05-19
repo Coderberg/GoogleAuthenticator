@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PHPGangsta\Tests;
 
 use PHPGangsta\GoogleAuthenticator;
@@ -61,7 +63,7 @@ final class GoogleAuthenticatorTest extends TestCase
      */
     public function testGetCodeReturnsCorrectValues($secret, $timeSlice, $code)
     {
-        $generatedCode = $this->googleAuthenticator->getCode($secret, $timeSlice);
+        $generatedCode = $this->googleAuthenticator->getCode($secret, (int) $timeSlice);
 
         $this->assertSame($code, $generatedCode);
     }
