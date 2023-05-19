@@ -24,6 +24,13 @@
         "friendsofphp/php-cs-fixer": "^2.19"
     },
     "autoload": {
-        "classmap": ["PHPGangsta/GoogleAuthenticator.php"]
+        "psr-4": {
+            "PHPGangsta\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPGangsta\\Tests\\": "tests/"
+        }
     }
 }

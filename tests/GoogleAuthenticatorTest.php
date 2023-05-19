@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPGangsta\Tests;
+
 use PHPGangsta\GoogleAuthenticator;
 use PHPUnit\Framework\TestCase;
 
@@ -36,7 +38,7 @@ class GoogleAuthenticatorTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testCreateSecretDefaultsToSixteenCharacters()
     {
@@ -47,7 +49,7 @@ class GoogleAuthenticatorTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testCreateSecretLengthCanBeSpecified()
     {
