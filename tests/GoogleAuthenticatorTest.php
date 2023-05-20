@@ -54,7 +54,7 @@ final class GoogleAuthenticatorTest extends TestCase
         for ($secretLength = 16; $secretLength < 100; ++$secretLength) {
             $secret = $ga->createSecret($secretLength);
 
-            $this->assertSame(\strlen($secret), $secretLength);
+            $this->assertSame($secretLength, \strlen($secret));
         }
     }
 
