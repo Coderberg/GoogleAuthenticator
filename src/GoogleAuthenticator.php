@@ -72,7 +72,7 @@ final class GoogleAuthenticator
         // grab 4 bytes of the result
         $hashpart = substr($hm, $offset, 4);
 
-        // Unpak binary value
+        // Unpack binary value
         $value = unpack('N', $hashpart);
         $value = $value[1];
         // Only 32 bits

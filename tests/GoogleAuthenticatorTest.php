@@ -94,7 +94,7 @@ final class GoogleAuthenticatorTest extends TestCase
 
         $this->assertTrue($result);
 
-        $code = 'INVALIDCODE';
+        $code = 'INVALID_CODE';
         $result = $this->googleAuthenticator->verifyCode($secret, $code);
 
         $this->assertFalse($result);
