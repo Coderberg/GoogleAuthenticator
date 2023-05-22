@@ -16,6 +16,9 @@ final class GoogleAuthenticatorTest extends TestCase
         $this->googleAuthenticator = new GoogleAuthenticator();
     }
 
+    /**
+     * @return array<int, string[]>
+     */
     public function codeProvider(): array
     {
         // Secret, time, code
@@ -61,7 +64,7 @@ final class GoogleAuthenticatorTest extends TestCase
     /**
      * @dataProvider codeProvider
      */
-    public function testGetCodeReturnsCorrectValues($secret, $timeSlice, $code): void
+    public function testGetCodeReturnsCorrectValues(string $secret, string $timeSlice, string $code): void
     {
         $generatedCode = $this->googleAuthenticator->getCode($secret, (int) $timeSlice);
 

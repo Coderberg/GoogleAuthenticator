@@ -66,14 +66,14 @@ final class GoogleAuthenticator
         // Pack time into binary string
         $time = \chr(0).\chr(0).\chr(0).\chr(0).pack('N*', $timeSlice);
         // Hash it with users secret key
-        $hm = hash_hmac('SHA1', $time, $secretkey, true);
+        $hm = hash_hmac('SHA1', $time, (string) $secretkey, true);
         // Use last nipple of result as index/offset
         $offset = \ord(substr($hm, -1)) & 0x0F;
         // grab 4 bytes of the result
         $hashpart = substr($hm, $offset, 4);
 
         // Unpack binary value
-        $value = unpack('N', $hashpart);
+        $value = (array) unpack('N', $hashpart);
         $value = $value[1];
         // Only 32 bits
         $value &= 0x7FFFFFFF;
@@ -85,6 +85,8 @@ final class GoogleAuthenticator
 
     /**
      * Get QR-Code URL for image, from Google charts.
+     *
+     * @param string[] $params
      */
     public function getQRCodeGoogleUrl(string $name, string $secret, string $title = null, array $params = []): string
     {
@@ -137,7 +139,7 @@ final class GoogleAuthenticator
     /**
      * Helper class to decode base32.
      */
-    private function _base32Decode($secret): bool|string
+    private function _base32Decode(?string $secret): bool|string
     {
         if (empty($secret)) {
             return '';
@@ -180,6 +182,8 @@ final class GoogleAuthenticator
 
     /**
      * Get array with all 32 characters for decoding from/encoding to base32.
+     *
+     * @return string[]
      */
     private function _getBase32LookupTable(): array
     {
