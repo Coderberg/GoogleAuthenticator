@@ -171,7 +171,7 @@ final class GoogleAuthenticator
             }
             $eightBits = str_split($x, 8);
             foreach ($eightBits as $z => $eightBit) {
-                $binaryString .= (($y = \chr((int) base_convert($eightBit, 2, 10))) || 48 == \ord($y)) ? $y : '';
+                $binaryString .= \chr((int) base_convert($eightBit, 2, 10));
             }
         }
 
